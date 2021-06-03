@@ -1098,7 +1098,7 @@ sqlite_db.error_message = sqlite_db.errmsg
 
 function sqlite_db:exec(sql, func)
 	if func then
-		local cb = ffi.cast("int (*callback)(void*,int,char**,char**)", func)
+		local cb = ffi.cast("sqlite3_callback", func)
 		self:check(sqlite3.sqlite3_exec(self.db, sql, cb, nil, nil))
 		cb:free()
 	else
